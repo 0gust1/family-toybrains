@@ -1,8 +1,26 @@
-# Oracle
+# Family Oracles
+
+This app is a proof of concept for a family oracle. It uses the OpenAI API to generate responses to questions. The app is built with SvelteKit and TailwindCSS.
+
+It's a work in progress, but you can see it in action here: <TODO>
+
+The app is simply protected by a password. This is not a very secure way to protect the app, but it's good enough for a proof of concept. The password is stored in the `SECRET_PASSWORD` environnment variable.
+
+You will also need an account on OpenAI (https://platform.openai.com/account/).
+
+Refs:
 
 - https://github.com/ScriptRaccoon/sveltekit-password
 - https://platform.openai.com/docs/api-reference
 - https://platform.openai.com/docs/guides/chat/introduction
+
+## Environment variables
+
+You'll need:
+
+- `SECRET_PASSWORD`, as stated above
+- `OPENAI_ORGANIZATION`
+- `OPENAI_KEY`
 
 ---
 
