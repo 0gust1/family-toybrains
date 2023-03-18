@@ -11,7 +11,7 @@
 	let isSubmitting = false;
 </script>
 
-<h1 class=" text-3xl">This is the oracle</h1>
+<h1 class=" text-3xl">L'oracle bête et cultivé d'Internet, en mode kawai</h1>
 
 <!-- <div class="m-4 p-4">
 	<pre class="text-xs">
@@ -113,10 +113,10 @@
 		@apply my-2 p-4 border-2 border-opacity-50 border-slate-200 whitespace-pre-line rounded;
 	}
 	.role-assistant {
-		@apply mr-2 pl-6 border-blue-200 border-opacity-20 bg-blue-100 text-slate-800 bg-opacity-50 rounded-r-2xl;
+		@apply mr-9 pl-6 border-blue-200 border-opacity-20 bg-blue-100 text-slate-800 bg-opacity-50 rounded-r-2xl;
 	}
 	.role-user {
-		@apply ml-2 border-green-200 border-opacity-20 bg-green-100 text-slate-800 bg-opacity-50 rounded-l-2xl;
+		@apply ml-9 border-green-200 border-opacity-20 bg-green-100 text-slate-800 bg-opacity-50 rounded-l-2xl;
 	}
 	.debug {
 		@apply mt-2 text-xs bg-yellow-200 bg-opacity-30 p-4 rounded-lg;
