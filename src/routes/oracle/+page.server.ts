@@ -1,8 +1,9 @@
 import { env } from '$env/dynamic/private';
 import { Configuration, OpenAIApi, type ChatCompletionResponseMessage } from 'openai';
 
+// TODO: use a database! maybe on client side?
 let messages: Array<ChatCompletionResponseMessage> = [
-	{ role: 'assistant', content: 'Ask me a question' }
+	{ role: 'assistant', content: 'Demande moi quelque chose' }
 ];
 
 const configuration = new Configuration({

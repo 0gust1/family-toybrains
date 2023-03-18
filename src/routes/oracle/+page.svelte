@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import { enhance } from '$app/forms';
 	import { messagesStore } from './message-store';
+	import CopyToClipboardButton from '$lib/components/CopyToClipboardButton.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
 
 	export let data: PageData;
@@ -41,7 +42,18 @@
 				class:role-user={message.role === 'user'}
 				class="role"
 			>
-				{message.content}
+				<div class="flex">
+					<div>
+						{message.content}
+					</div>
+					{#if message.role === 'assistant'}
+						<CopyToClipboardButton
+							class="ml-auto"
+							textToCopy={message.content}
+							buttonTitle="Copier dans le presse-papier"
+						/>
+					{/if}
+				</div>
 			</div>
 		{/each}
 		{#if isSubmitting && data.messages[data.messages.length - 1].role === 'assistant'}
