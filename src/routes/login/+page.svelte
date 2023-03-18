@@ -4,7 +4,7 @@
 	export let form: ActionData;
 </script>
 
-<h1>Login</h1>
+<h1 class="text-3xl">N'entre pas ici qui veut !</h1>
 
 <form method="POST" use:enhance>
 	<label>Password<input name="password" type="password" /></label>
