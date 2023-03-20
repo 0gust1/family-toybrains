@@ -10,14 +10,15 @@ export const actions: Actions = {
 		const password_correct = password === SECRET_PASSWORD;
 
 		if (password_correct) {
-			const session_id = save_session();
-			const one_week = 60 * 60 * 24 * 7;
-			cookies.set('session_id', session_id, {
-				path: '/',
-				maxAge: one_week
-			});
-
-			throw redirect(307, '/oracle');
+			const session_id = await save_session();
+			if (session_id) {
+				const one_week = 60 * 60 * 24 * 7;
+				cookies.set('session_id', session_id, {
+					path: '/',
+					maxAge: one_week
+				});
+				throw redirect(307, '/oracle');
+			}
 		}
 
 		return fail(401, { password_correct });
