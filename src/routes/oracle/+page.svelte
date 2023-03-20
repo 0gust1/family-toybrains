@@ -4,6 +4,7 @@
 	import { messagesStore } from './message-store';
 	import CopyToClipboardButton from '$lib/components/CopyToClipboardButton.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
+	import { marked } from 'marked';
 
 	export let data: PageData;
 	export let form;
@@ -36,27 +37,28 @@
 
 <div class="m-4 p-4">
 	<div>
-		{#each data.messages as message}
+		{#each data.messages as msg}
 			<div
-				class:role-assistant={message.role === 'assistant'}
-				class:role-user={message.role === 'user'}
-				class="role"
+				class:role-assistant={msg.message.role === 'assistant'}
+				class:role-user={msg.message.role === 'user'}
+				class="message"
 			>
 				<div class="flex">
-					<div>
-						{message.content}
-					</div>
-					{#if message.role === 'assistant'}
+					<article class="content prose">
+						{@html marked.parse(msg.message.content)}
+						<!-- {msg.message.content.trimStart()} -->
+					</article>
+					{#if msg.message.role === 'assistant'}
 						<CopyToClipboardButton
 							class="ml-auto"
-							textToCopy={message.content}
+							textToCopy={msg.message.content}
 							buttonTitle="Copier dans le presse-papier"
 						/>
 					{/if}
 				</div>
 			</div>
 		{/each}
-		{#if isSubmitting && data.messages[data.messages.length - 1].role === 'assistant'}
+		{#if isSubmitting}
 			<div class="role role-assistant">
 				<span class="block">assistant: </span>
 				<Spinner />
@@ -121,8 +123,12 @@
 </div>
 
 <style lang="postcss">
-	.role {
-		@apply my-2 p-4 border-2 border-opacity-50 border-slate-200 whitespace-pre-line rounded;
+	.message {
+		@apply my-2 px-4 py-6 border-2 border-opacity-50 border-slate-200 rounded;
+	}
+	.message .content {
+		/* @apply whitespace-pre-line; */
+		@apply prose prose-slate prose-sm;
 	}
 	.role-assistant {
 		@apply mr-9 pl-6 border-blue-200 border-opacity-20 bg-blue-100 text-slate-800 bg-opacity-50 rounded-r-2xl;
