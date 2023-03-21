@@ -1,4 +1,5 @@
 import { env } from '$env/dynamic/private';
+import { fail } from '@sveltejs/kit';
 import { Configuration, OpenAIApi, type ChatCompletionResponseMessage } from 'openai';
 import { supabase } from '$lib/services/supabaseClient';
 
@@ -21,7 +22,7 @@ export const load = async () => {
 	const { data } = await supabase.from('messages').select('*').order('created_at');
 	//.eq('conversation_id', conversationId)
 
-	console.log(data);
+	//console.log(data);
 	return {
 		messages: data ?? [],
 		models: models,
@@ -36,25 +37,37 @@ export const actions = {
 		const usrMsg = data.get('message') as string;
 		const model = data.get('model') as string;
 
-		const response = await openai.createChatCompletion({
-			model: model,
-			messages: [{ role: 'user', content: usrMsg }],
-			max_tokens: 2048,
-			temperature: 0.3
-		});
+		let messages = [];
 
-		let messages = await (
+		try {
+			const response = await openai.createChatCompletion({
+				model: model,
+				messages: [{ role: 'user', content: usrMsg }],
+				max_tokens: 2048,
+				temperature: 0.3
+			});
+			//{ message: { role: 'user', content: usrMsg }, conversation_id: conversationId },
 			await supabase
 				.from('messages')
-				.insert([
-					{ message: { role: 'user', content: usrMsg }, conversation_id: conversationId },
-					{ message: response.data.choices[0].message, conversation_id: conversationId }
-				])
-				.select('*')
-				.order('created_at')
-		).data;
+				.insert([{ message: { role: 'user', content: usrMsg }, conversation_id: conversationId }]);
 
-		console.log(messages);
+			messages = await (
+				await supabase
+					.from('messages')
+					.insert([{ message: response.data.choices[0].message, conversation_id: conversationId }])
+					.select('*')
+					.order('created_at')
+			).data;
+		} catch (err /*: AxiosError<OpenAIError> */) {
+			//console.log(err);
+			//const origerr = err.toJSON();
+			return fail(err.response.status, {
+				message: 'Le robot a eu un problème !',
+				error: err.response.data ?? err.response.statusText
+			});
+		}
+
+		//console.log(messages);
 
 		messages = [
 			...(messages ?? [])
