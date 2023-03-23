@@ -4,10 +4,10 @@
 	let conversations = data.conversations ?? [];
 </script>
 
-<Sidebar {conversations} />
-
-<main class="flex-1">
-	<div class="py-6">
-		<slot />
-	</div>
-</main>
+<Sidebar {conversations}>
+	<main class="flex-1">
+		<div class="py-6">
+			<slot />
+		</div>
+	</main>
+</Sidebar>

@@ -49,14 +49,14 @@ export const actions = {
 		let messages = [];
 
 		try {
+			await createConversationMessage(convId, { role: 'user', content: usrMsg });
+
 			const response = await openai.createChatCompletion({
 				model: model,
 				messages: [{ role: 'user', content: usrMsg }],
 				max_tokens: 2048,
 				temperature: 0.3
 			});
-
-			await createConversationMessage(convId, { role: 'user', content: usrMsg });
 
 			const responseData = response.data;
 			const { choices, ...metadata } = responseData;
