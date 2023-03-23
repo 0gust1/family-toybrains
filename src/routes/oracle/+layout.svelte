@@ -2,7 +2,7 @@
 	import type { LayoutData } from './$types';
 	import Sidebar from './Sidebar.svelte';
 	export let data: LayoutData;
-	let conversations = data.conversations;
+	let conversations = data.conversations ?? [];
 </script>
 
 <Sidebar {conversations} />
