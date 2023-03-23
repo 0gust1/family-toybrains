@@ -55,10 +55,6 @@ export const actions = {
 				max_tokens: 2048,
 				temperature: 0.3
 			});
-			//{ message: { role: 'user', content: usrMsg }, conversation_id: conversationId },
-			/* 		await supabase
-				.from('messages')
-				.insert([{ message: { role: 'user', content: usrMsg }, conversation_id: convId }]); */
 
 			await createConversationMessage(convId, { role: 'user', content: usrMsg });
 
@@ -68,16 +64,7 @@ export const actions = {
 			metadata.index = choices[0].index;
 
 			messages = await createConversationMessage(convId, choices[0].message, metadata);
-			/* messages = await (
-				await supabase
-					.from('messages')
-					.insert([{ message: response.data.choices[0].message, conversation_id: convId }])
-					.select('*')
-					.order('created_at')
-			).data */
 		} catch (err /*: AxiosError<OpenAIError> */) {
-			//console.log(err);
-			//const origerr = err.toJSON();
 			return fail(err.response.status, {
 				message: 'Le robot a eu un problème !',
 				error: err.response.data ?? err.response.statusText
