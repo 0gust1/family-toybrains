@@ -20,9 +20,9 @@
 
 <div>
 	<div
-		class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8 sticky top-0 bg-blue-200 bg-opacity-80 z-10 text-blue-800"
+		class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8 sticky top-12 lg:top-0 bg-blue-200 bg-opacity-80 z-10 text-blue-800"
 	>
-		<h1 class=" text-3xl">
+		<h1 class="text-xl sm:text-2xl md:text-3xl">
 			{data?.current_conversation?.name}
 		</h1>
 
@@ -43,7 +43,7 @@
 </div> -->
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="m-4 p-4">
-			<div class="w-3/5 mx-auto">
+			<div class="w-11/12 sm:w-9/12 lg:w-3/5 mx-auto">
 				{#each data.messages as msg}
 					<div
 						class:role-assistant={msg.message.role === 'assistant'}
@@ -77,7 +77,7 @@
 			</div>
 			<form
 				id="prompt-form"
-				class="w-3/5 mx-auto"
+				class="w-full md:w-3/5 mx-auto"
 				method="POST"
 				use:enhance={({ form, data, action, cancel, submitter }) => {
 					// `form` is the `<form>` element
@@ -99,6 +99,7 @@
 						<textarea
 							name="message"
 							required
+							rows="5"
 							class="w-full border border-gray-300 rounded bg-opacity-60 bg-white p-2"
 						/>
 					</label>
@@ -106,7 +107,7 @@
 						<button
 							type="submit"
 							class=" border border-sky-700 bg-sky-600 rounded-2xl text-white px-3 py-2 shadow-md hover:bg-sky-700 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 active:scale-95 active:translate-y"
-							>Submit</button
+							>Envoyer</button
 						>
 					{:else}
 						<Spinner />
