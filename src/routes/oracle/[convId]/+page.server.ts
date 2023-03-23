@@ -11,6 +11,8 @@ const openai = new OpenAIApi(configuration);
 const resp = await openai.listModels();
 const models = resp.data.data.map((model) => model.id);
 
+export const ssr = true;
+
 export const load = async ({ params }) => {
 	const convId = params.convId;
 	const { data } = await supabase
