@@ -6,6 +6,6 @@
 	<button type="button">Se déconnecter</button>
 </div>
 
-<div class=" bg-pink-200 h-full min-h-screen sm:px-4">
+<div class=" bg-pink-200 h-full min-h-screen">
 	<slot />
 </div>

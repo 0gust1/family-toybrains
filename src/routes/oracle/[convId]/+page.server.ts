@@ -19,8 +19,13 @@ export const load = async ({ params }) => {
 		.eq('conversation_id', convId)
 		.order('created_at');
 
+	const conversation = await (
+		await supabase.from('conversations').select('*').eq('id', convId).single()
+	).data;
+
 	//console.log(data);
 	return {
+		conversation: conversation,
 		messages: data ?? [],
 		models: models,
 		model: 'gpt-3.5-turbo',
