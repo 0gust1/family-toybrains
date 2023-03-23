@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { ArrowRight } from '@steeze-ui/heroicons';
+	import { page } from '$app/stores';
 	import { ChatBubbleBottomCenter as Chat } from '@steeze-ui/heroicons';
-	export let conversations: any;
 </script>
 
 <!--
@@ -241,24 +242,27 @@
 			<div class="flex flex-shrink-0 items-center px-4">
 				<a href="/" class="text-pink-500">&lt; Retour à l'accueil</a>
 			</div>
-			<nav class="mt-5 flex-1 space-y-1 px-2">
+			<nav class="mt-5 flex-1 space-y-1 pl-2">
 				<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 				<h1 class="font-rounded-sans text-2xl text-blue-400">
 					<a href="/oracle"> Conversations </a>
 				</h1>
 				<ul class="text-gray-300">
-					{#each conversations as conversation}
-						<li class="flex gap-1">
-							<Icon src={Chat} class="h-6 w-6 mt-1" />
-							<div>
-								<p class="font-medium">
-									<a href="/oracle/{conversation.id}">
+					{#each $page.data.conversations as conversation}
+						{@const current = $page.data.current_conversation.id === conversation.id}
+						<li class="py-1 pr-1" class:current>
+							<a class="flex gap-1 items-center" href="/oracle/{conversation.id}">
+								<Icon src={Chat} class="h-6 w-6 mr-1" />
+								<div>
+									<p class="font-medium">
 										{conversation.name}
-									</a>
-								</p>
-								<p class="text-xs">{new Date(conversation.created_at).toLocaleString()}</p>
-							</div>
-
+									</p>
+									<p class="text-xs">{new Date(conversation.created_at).toLocaleString()}</p>
+								</div>
+								{#if current}
+									<Icon src={ArrowRight} class="h-6 w-6 ml-auto" />
+								{/if}
+							</a>
 							<!-- {JSON.stringify(conversation, null, 2)} -->
 						</li>
 					{/each}
@@ -315,5 +319,12 @@
 <style lang="postcss">
 	ul {
 		@apply list-disc;
+	}
+	.current {
+		@apply bg-blue-300 bg-opacity-30 text-white;
+	}
+
+	.current::after {
+		content: '';
 	}
 </style>

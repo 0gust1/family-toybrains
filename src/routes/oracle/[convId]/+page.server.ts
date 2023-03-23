@@ -25,7 +25,7 @@ export const load = async ({ params }) => {
 
 	//console.log(data);
 	return {
-		conversation: conversation,
+		current_conversation: conversation,
 		messages: data ?? [],
 		models: models,
 		model: 'gpt-3.5-turbo',

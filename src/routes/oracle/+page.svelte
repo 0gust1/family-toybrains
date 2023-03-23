@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	export let data;
+	export let form;
 </script>
 
 <!-- <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -15,12 +17,12 @@
 		<img src="/robot1.svg" class="w-1/3" alt="" />
 	</div>
 	<div>
-		<form action="">
+		<form method="POST" use:enhance>
 			<ul>
 				<li>
 					<label for=""
 						>Nom
-						<input type="text" name="" id="" />
+						<input type="text" name="conv_name" />
 					</label>
 				</li>
 				<li>

@@ -9,7 +9,10 @@ export const load = async ({ cookies }) => {
 	const logged_in = await has_session(session_id);
 	if (!logged_in) throw redirect(307, '/login');
 
-	const { data } = await supabase.from('conversations').select('*').order('created_at');
+	const { data } = await supabase
+		.from('conversations')
+		.select('*')
+		.order('created_at', { ascending: false });
 
 	return {
 		conversations: data,

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import { enhance } from '$app/forms';
 	import { messagesStore } from '../message-store';
 	import CopyToClipboardButton from '$lib/components/CopyToClipboardButton.svelte';
@@ -7,12 +6,12 @@
 	import { marked } from 'marked';
 	import { onMount } from 'svelte';
 
-	export let data: PageData;
+	export let data;
 	export let form;
 	let debug = true;
 	let model = data.model;
 	let isSubmitting = false;
-	let conversation = data.conversation;
+	let conversation = data.current_conversation;
 
 	onMount(() => {
 		window.scrollTo(0, document.body.scrollHeight);
