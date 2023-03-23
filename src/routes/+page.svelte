@@ -16,8 +16,8 @@
 		<img class=" w-56" src="/robot5.svg" alt="" />
 	</div>
 
-	<div class="mt-8 px-2 py-8 bg-blue-500 bg-opacity-50">
-		<ul class="list-none">
+	<div class="mt-8 px-2 py-8 rounded-md bg-blue-500 bg-opacity-50">
+		<ul class="list-none text-blue-800 text-2xl font-rounded-sans">
 			<li>
 				<Icon src={ArrowRightCircle} class="h-6 w-6 inline-block mr-2" /><a href="/oracle"
 					>Accéder à l'oracle</a

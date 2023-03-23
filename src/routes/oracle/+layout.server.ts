@@ -12,6 +12,7 @@ export const load = async ({ cookies }) => {
 	const { data } = await supabase.from('conversations').select('*').order('created_at');
 
 	return {
-		conversations: data
+		conversations: data,
+		logged_in: logged_in
 	};
 };
