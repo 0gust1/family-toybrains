@@ -62,7 +62,12 @@ export const actions = {
 
 			await createConversationMessage(convId, { role: 'user', content: usrMsg });
 
-			messages = await createConversationMessage(convId, response.data.choices[0].message);
+			const responseData = response.data;
+			const { choices, ...metadata } = responseData;
+			metadata.finish_reason = choices[0].finish_reason;
+			metadata.index = choices[0].index;
+
+			messages = await createConversationMessage(convId, choices[0].message, metadata);
 			/* messages = await (
 				await supabase
 					.from('messages')

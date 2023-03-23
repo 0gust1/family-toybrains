@@ -16,11 +16,12 @@ export async function getConversationMessages(conversation_id: string) {
 
 export async function createConversationMessage(
 	conversation_id: string,
-	message: { role: string; content: string }
+	message: { role: string; content: string },
+	metadata?: { [key: string]: any }
 ) {
 	const { data: messages, error } = await supabase
 		.from('messages')
-		.insert([{ message, conversation_id }])
+		.insert([{ message, conversation_id, metadata: metadata ?? null }])
 		.select('*')
 		.order('created_at');
 
