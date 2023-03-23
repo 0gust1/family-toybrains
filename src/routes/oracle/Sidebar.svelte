@@ -77,7 +77,13 @@
 
 				<div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
 					<div class="flex flex-shrink-0 items-center px-4">
-						<a href="/" class="text-pink-500">&lt; Retour à l'accueil</a>
+						<a
+							href="/"
+							on:click={() => {
+								menuOpen = false;
+							}}
+							class="text-pink-500">&lt; Retour à l'accueil</a
+						>
 					</div>
 					<nav class="mt-5 space-y-1 px-2">
 						<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
@@ -88,7 +94,13 @@
 							{#each conversations as conversation}
 								{@const current = $page.data?.current_conversation?.id === conversation.id}
 								<li class="p-1" class:current>
-									<a class="flex gap-1 items-center" href="/oracle/{conversation.id}">
+									<a
+										class="flex gap-1 items-center"
+										on:click={() => {
+											menuOpen = false;
+										}}
+										href="/oracle/{conversation.id}"
+									>
 										<Icon src={Chat} class="h-6 w-6 mr-1" />
 										<div>
 											<p class="font-medium">
