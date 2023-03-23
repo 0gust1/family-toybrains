@@ -23,12 +23,11 @@
 		class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8 sticky top-0 bg-blue-200 bg-opacity-80 z-10 text-blue-800"
 	>
 		<h1 class=" text-3xl">
-			{$page.data.current_conversation.name}
+			{data?.current_conversation?.name}
 		</h1>
+
 		<p class="text-xs text-slate-500">
-			Conversation créée le {new Date(
-				$page.data.current_conversation.created_at
-			).toLocaleDateString()}
+			Conversation créée le {new Date(data.current_conversation?.created_at).toLocaleDateString()}
 		</p>
 	</div>
 	<!-- <div class="m-4 p-4">
