@@ -1,6 +1,6 @@
-import { redirect } from '@sveltejs/kit';
+import { redirect, error } from '@sveltejs/kit';
 import { has_session } from '$lib/services/session';
-import { supabase } from '$lib/services/supabaseClient';
+import { getAllConversations } from '$lib/services/conversations';
 
 export const load = async ({ cookies }) => {
 	const session_id = cookies.get('session_id');
@@ -9,13 +9,14 @@ export const load = async ({ cookies }) => {
 	const logged_in = await has_session(session_id);
 	if (!logged_in) throw redirect(307, '/login');
 
-	const { data } = await supabase
-		.from('conversations')
-		.select('*')
-		.order('created_at', { ascending: false });
+	const conversationsOrError = await getAllConversations();
 
-	return {
-		conversations: data,
-		logged_in: logged_in
-	};
+	if (conversationsOrError instanceof Error) {
+		throw error(500, conversationsOrError.message);
+	} else {
+		return {
+			conversations: conversationsOrError,
+			logged_in: logged_in
+		};
+	}
 };
