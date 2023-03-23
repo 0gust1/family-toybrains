@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { LayoutData } from './$types';
 	import Sidebar from './Sidebar.svelte';
-	export let data: LayoutData;
+	export let data;
 	let conversations = data.conversations ?? [];
 </script>
 

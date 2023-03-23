@@ -1,7 +1,8 @@
 import { env } from '$env/dynamic/private';
-import { fail } from '@sveltejs/kit';
+import { fail, error } from '@sveltejs/kit';
 import { Configuration, OpenAIApi, type ChatCompletionResponseMessage } from 'openai';
-import { supabase } from '$lib/services/supabaseClient';
+import { getConversationMessages, createConversationMessage } from '$lib/services/messages';
+import { getConversation } from '$lib/services/conversations';
 
 const configuration = new Configuration({
 	organization: env.OPENAI_ORGANIZATION,
@@ -15,20 +16,23 @@ export const ssr = true;
 
 export const load = async ({ params }) => {
 	const convId = params.convId;
-	const { data } = await supabase
-		.from('messages')
-		.select('*')
-		.eq('conversation_id', convId)
-		.order('created_at');
 
-	const conversation = await (
-		await supabase.from('conversations').select('*').eq('id', convId).single()
-	).data;
+	const messagesOrError = await getConversationMessages(convId);
+
+	const conversationOrError = getConversation(convId);
+
+	if (messagesOrError instanceof Error) {
+		throw error(500, messagesOrError.message);
+	}
+
+	if (conversationOrError instanceof Error) {
+		throw error(500, conversationOrError.message);
+	}
 
 	//console.log(data);
 	return {
-		current_conversation: conversation,
-		messages: data ?? [],
+		current_conversation: conversationOrError,
+		messages: messagesOrError ?? [],
 		models: models,
 		model: 'gpt-3.5-turbo',
 		user: 'achas'
@@ -52,17 +56,20 @@ export const actions = {
 				temperature: 0.3
 			});
 			//{ message: { role: 'user', content: usrMsg }, conversation_id: conversationId },
-			await supabase
+			/* 		await supabase
 				.from('messages')
-				.insert([{ message: { role: 'user', content: usrMsg }, conversation_id: convId }]);
+				.insert([{ message: { role: 'user', content: usrMsg }, conversation_id: convId }]); */
 
-			messages = await (
+			await createConversationMessage(convId, { role: 'user', content: usrMsg });
+
+			messages = await createConversationMessage(convId, response.data.choices[0].message);
+			/* messages = await (
 				await supabase
 					.from('messages')
 					.insert([{ message: response.data.choices[0].message, conversation_id: convId }])
 					.select('*')
 					.order('created_at')
-			).data;
+			).data */
 		} catch (err /*: AxiosError<OpenAIError> */) {
 			//console.log(err);
 			//const origerr = err.toJSON();

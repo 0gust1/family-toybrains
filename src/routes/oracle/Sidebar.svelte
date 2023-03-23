@@ -3,6 +3,9 @@
 	import { ArrowRight } from '@steeze-ui/heroicons';
 	import { page } from '$app/stores';
 	import { ChatBubbleBottomCenter as Chat } from '@steeze-ui/heroicons';
+
+	export let open = true;
+	export let conversations;
 </script>
 
 <!--
@@ -248,7 +251,7 @@
 					<a href="/oracle"> Conversations </a>
 				</h1>
 				<ul class="text-gray-300">
-					{#each $page.data.conversations as conversation}
+					{#each conversations as conversation}
 						{@const current = $page.data?.current_conversation?.id === conversation.id}
 						<li class="p-1" class:current>
 							<a class="flex gap-1 items-center" href="/oracle/{conversation.id}">
