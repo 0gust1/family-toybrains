@@ -1,9 +1,8 @@
-import type { Actions } from './$types';
 import { SECRET_PASSWORD } from '$env/static/private';
 import { fail, redirect } from '@sveltejs/kit';
-import { save_session } from '../../lib/services/session';
+import { save_session } from '$lib/services/session';
 
-export const actions: Actions = {
+export const actions = {
 	default: async ({ request, cookies }) => {
 		const data = await request.formData();
 		const password = data.get('password');
