@@ -9,14 +9,13 @@ export async function getAllConversations() {
 	if (error) {
 		return new Error(error.message);
 	}
-	console.log(conversations);
 	return conversations;
 }
 
 export async function getConversation(conversation_id: string) {
 	const { data: conversation, error } = await supabase
 		.from('conversations')
-		.select()
+		.select('name, id, created_at, user, is_chat, users(name, id))')
 		.eq('id', conversation_id)
 		.single();
 

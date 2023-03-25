@@ -4,6 +4,7 @@
 	import { ChatBubbleLeftRight as Chat } from '@steeze-ui/heroicons';
 	export let data;
 	export let form;
+	let conv_type = 'Q/A';
 </script>
 
 <!-- <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -54,6 +55,25 @@
 							name="conv_name"
 						/>
 					</label>
+				</li>
+				<li class="text-sm mt-2">
+					<fieldset class="flex flex-col gap-1 font-semibold">
+						<legend class="mb-1">Type de conversation :</legend>
+						<label class="ml-2">
+							<input type="radio" bind:group={conv_type} name="conv_type" value="Q/A" />
+							Questions / Réponses
+							<div class="font-normal italic ml-4 text-pink-800">
+								(le robot ne tient pas compte des messages précédents de la conversation)
+							</div>
+						</label>
+						<label class="ml-2">
+							<input type="radio" bind:group={conv_type} name="conv_type" value="Chat" />
+							Conversation
+							<div class="font-normal italic ml-4 text-pink-800">
+								(le robot tient compte de tous les messages de la conversation)
+							</div>
+						</label>
+					</fieldset>
 				</li>
 				<li class="mt-2">
 					<button type="submit" class="bg-pink-600 p-4 rounded-md text-pink-100 font-semibold">
