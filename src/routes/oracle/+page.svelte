@@ -13,9 +13,11 @@
 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 	<div class="flex items-start mt-4">
 		<div
-			class="bg-orange-200 bg-opacity-50 p-8 shadow rounded-full rounded-l-none text-lg text-sky-700 font-rounded-sans "
+			class="bg-orange-200 bg-opacity-50 p-8 pr-10 pb-10 shadow rounded-3xl rounded-l-none rounded-t-none text-xs md:text-lg text-sky-700 font-rounded-sans -ml-8 -mt-4"
 		>
-			<p class="text-3xl font-black text-pink-500">Bonjour, je suis le robot ChatGPT!</p>
+			<p class="text-base md:text-3xl font-black text-pink-500">
+				Bonjour, je suis le robot ChatGPT!
+			</p>
 			<p class="mt-4">Je suis à la fois très intelligent et très bête.</p>
 			<p class="mt-2">
 				En effet, je suis capable de répondre à des questions, mais je ne suis pas capable de <strong
@@ -27,26 +29,33 @@
 				mes propre erreurs.
 			</p>
 			<p class="mt-2">
-				<strong class="underline underline-offset-4 text-fuchsia-700">
+				<strong class="underline decoration-dotted underline-offset-4 text-fuchsia-700">
 					Par contre, méfie-toi, je suis très doué pour parfois dire des choses fausses de manière
-					très convaincante !
+					très convaincante&nbsp;!
 				</strong>
 			</p>
 		</div>
-		<img src="/robot1.svg" class="w-1/3 drop-shadow-[0_0px_50px_rgba(200,100,100,0.9)]" alt="" />
+		<img src="/robot1.svg" class="w-1/3 drop-shadow-[0_0px_50px_rgba(131,24,67,0.7)]" alt="" />
 	</div>
 	<div class="mt-4 flex items-center gap-6">
-		<Icon src={Chat} class=" w-52 h-52" />
+		<Icon src={Chat} class=" w-52 h-52 text-pink-600 opacity-70" />
 		<form method="POST" use:enhance>
-			<h1 class="font-rounded-sans text-3xl">Crée une conversation avec moi !</h1>
-			<ul class="text-lg mt-4">
+			<h1 class="font-rounded-sans text-xl md:text-3xl text-pink-500">
+				Crée une conversation avec moi&nbsp;!
+			</h1>
+			<ul class="text-sm md:text-lg mt-2">
 				<li>
-					<label for=""
+					<label
 						>Nom de la conversation
-						<input type="text" required name="conv_name" />
+						<input
+							type="text"
+							class="w-full border border-gray-300 rounded bg-opacity-60 bg-white p-4"
+							required
+							name="conv_name"
+						/>
 					</label>
 				</li>
-				<li>
+				<li class="mt-2">
 					<button type="submit" class="bg-pink-600 p-4 rounded-md"> Créer </button>
 				</li>
 			</ul>
