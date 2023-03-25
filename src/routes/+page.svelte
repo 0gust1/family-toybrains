@@ -9,11 +9,11 @@
 	</h1>
 
 	<div class="flex flex-wrap justify-center">
-		<img class=" w-56" src="/robot1.svg" alt="" />
-		<img class=" w-56" src="/robot2.svg" alt="" />
-		<img class=" w-56" src="/robot3.svg" alt="" />
-		<img class=" w-56" src="/robot4.svg" alt="" />
-		<img class=" w-56" src="/robot5.svg" alt="" />
+		<img class="w-24 lg:w-56" src="/robot1.svg" alt="" />
+		<img class="w-24 lg:w-56" src="/robot2.svg" alt="" />
+		<img class="w-24 lg:w-56" src="/robot3.svg" alt="" />
+		<img class="w-24 lg:w-56" src="/robot4.svg" alt="" />
+		<img class="w-24 lg:w-56" src="/robot5.svg" alt="" />
 	</div>
 
 	<div class="mt-8 px-2 py-8 rounded-md bg-blue-500 bg-opacity-50">
