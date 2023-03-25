@@ -32,16 +32,15 @@ export const load = async ({ params }) => {
 
 	const convId = params.convId;
 
-	const messagesOrError = await getConversationMessages(convId);
-
-	const conversationOrError = getConversation(convId);
-
-	if (messagesOrError instanceof Error) {
-		throw error(500, messagesOrError.message);
-	}
+	const conversationOrError = await getConversation(convId);
 
 	if (conversationOrError instanceof Error) {
 		throw error(500, conversationOrError.message);
+	}
+
+	const messagesOrError = await getConversationMessages(convId);
+	if (messagesOrError instanceof Error) {
+		throw error(500, messagesOrError.message);
 	}
 
 	//console.log(data);
