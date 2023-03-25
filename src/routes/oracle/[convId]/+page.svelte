@@ -173,7 +173,7 @@
 							<span>Model:</span>
 							<select name="model" bind:value={model}>
 								{#each data.models as model}
-									<option value={model}>{model}</option>
+									<option value={model.id}>{model.id}</option>
 								{/each}
 							</select>
 						</label>

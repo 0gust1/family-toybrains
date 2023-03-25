@@ -21,12 +21,13 @@ const configuration = new Configuration({
 	apiKey: env.OPENAI_KEY
 });
 const openai = new OpenAIApi(configuration);
-const resp = await openai.listModels();
-const models = resp.data.data.map((model) => model.id);
 
 export const ssr = true;
 
 export const load = async ({ params }) => {
+	const resp = await openai.listModels(); // TODO: remove or cache this
+	const models = resp.data.data;
+
 	const convId = params.convId;
 
 	const messagesOrError = await getConversationMessages(convId);
