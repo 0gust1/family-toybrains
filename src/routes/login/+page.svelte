@@ -9,19 +9,25 @@
 		<h1 class="text-3xl my-4">N'entre pas ici qui veut !</h1>
 
 		<form method="POST" use:enhance class="text-lg">
-			<p class="my-4">
-				<label>Entrez votre nom: <input required name="username" type="text" /></label>
-			</p>
-			<p class="my-4">
-				<label>Entrez le mot de passe: <input required name="password" type="password" /></label>
-			</p>
+			<div class="flex gap-4">
+				<div class="shrink-0">
+					<p class="my-4">
+						<label>Entrez votre nom: <input required name="username" type="text" /></label>
+					</p>
+					<p class="my-4">
+						<label>Entrez le mot de passe: <input required name="password" type="password" /></label
+						>
+					</p>
+				</div>
+				<div class="bg-red-500 bg-opacity-50 px-4 py-6 rounded-md text-sm text-red-900">
+					{#if form && (!form.password_correct || !form.user)}
+						<p>Soit le mot de passe est incorrect, ou soit l'utilisateur est inconnu !</p>
+					{/if}
+				</div>
+			</div>
 			<p>
 				<button type="submit" class="p-4 border border-purple-600 rounded-md">Entrer</button>
 			</p>
 		</form>
-
-		{#if form && !form.password_correct}
-			<p>The password is not correct.</p>
-		{/if}
 	</div>
 </div>
