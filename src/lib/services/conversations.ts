@@ -30,7 +30,9 @@ export async function getConversation(conversation_id: string) {
 export async function createConversation(conversation_name: string) {
 	const { data: conversation, error } = await supabase
 		.from('conversations')
-		.upsert([{ name: conversation_name }]);
+		.upsert([{ name: conversation_name }])
+		.select()
+		.single();
 
 	if (error) {
 		return new Error(error.message);
