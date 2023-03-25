@@ -8,9 +8,9 @@ export const actions = {
 		const password = data.get('password');
 		const password_correct = password === SECRET_PASSWORD;
 		const username = data.get('username');
-
-		if (password_correct) {
-			const user = await getUser(username);
+		const user = await getUser(username);
+		console.log(user);
+		if (password_correct && user) {
 			const session_id = await save_session();
 			if (session_id && user) {
 				const one_week = 60 * 60 * 24 * 7;
@@ -31,6 +31,6 @@ export const actions = {
 			}
 		}
 
-		return fail(401, { password_correct });
+		return fail(401, { password_correct, user });
 	}
 };
