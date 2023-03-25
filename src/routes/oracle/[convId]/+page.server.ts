@@ -10,7 +10,7 @@ import type { Config } from '@sveltejs/adapter-vercel';
 export const config: Config = {
 	runtime: 'edge',
 	envVarsInUse: [
-		'OPENAI_KEY',
+		'OPENAI_API_KEY',
 		'OPENAI_ORGANIZATION',
 		'SUPABASE_PROJECT_URL',
 		'SUPABASE_PROJECT_KEY'
@@ -19,7 +19,7 @@ export const config: Config = {
 
 const configuration: ConfigOpts = {
 	organizationId: env.OPENAI_ORGANIZATION,
-	apiKey: env.OPENAI_KEY
+	apiKey: env.OPENAI_API_KEY
 };
 const openaiClient = new OpenAIClient(configuration);
 
