@@ -21,8 +21,10 @@ const config = {
 	vitePlugin: {
 		experimental: {
 			inspector: {
+				toggleKeyCombo: 'control-shift',
 				showToggleButton: 'always',
-				toggleButtonPos: 'bottom-right'
+				toggleButtonPos: 'bottom-right',
+				holdMode: false
 			}
 		}
 	}

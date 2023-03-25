@@ -9,12 +9,17 @@ export const load = async ({ cookies }) => {
 	const logged_in = await has_session(session_id);
 	if (!logged_in) throw redirect(307, '/login');
 
+	const username = cookies.get('username');
+	const userId = cookies.get('user_id');
+
 	const conversationsOrError = await getAllConversations();
 
 	if (conversationsOrError instanceof Error) {
 		throw error(500, conversationsOrError.message);
 	} else {
 		return {
+			userId: userId,
+			username: username,
 			conversations: conversationsOrError,
 			logged_in: logged_in
 		};

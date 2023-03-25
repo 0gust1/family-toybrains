@@ -7,8 +7,11 @@
 	};
 </script>
 
-<div class=" bg-pink-100 w-full flex justify-end px-4 py-1 h-8">
+<div class=" bg-pink-100 w-full flex justify-end items-baseline px-4 py-1 h-8">
 	{#if $page.data.logged_in}
+		{#if $page.data.username}
+			<p class="text-xs mr-2">Bonjour {$page.data.username} !</p>
+		{/if}
 		<button
 			type="button"
 			class="text-xs px-2 rounded border border-purple-500"

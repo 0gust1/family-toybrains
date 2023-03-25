@@ -1,5 +1,16 @@
 import { supabase } from './supabaseClient';
 
+export async function getUser(username: string) {
+	const { data, error } = await supabase.from('users').select().eq('name', username).single();
+
+	if (error) {
+		console.error(error);
+		return null;
+	}
+
+	return data;
+}
+
 export async function save_session() {
 	const session_id = crypto.randomUUID();
 	const { data, error } = await supabase

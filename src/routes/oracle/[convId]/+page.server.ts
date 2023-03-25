@@ -32,16 +32,15 @@ export const load = async ({ params }) => {
 
 	const convId = params.convId;
 
-	const messagesOrError = await getConversationMessages(convId);
-
-	const conversationOrError = getConversation(convId);
-
-	if (messagesOrError instanceof Error) {
-		throw error(500, messagesOrError.message);
-	}
+	const conversationOrError = await getConversation(convId);
 
 	if (conversationOrError instanceof Error) {
 		throw error(500, conversationOrError.message);
+	}
+
+	const messagesOrError = await getConversationMessages(convId);
+	if (messagesOrError instanceof Error) {
+		throw error(500, messagesOrError.message);
 	}
 
 	//console.log(data);
@@ -55,7 +54,7 @@ export const load = async ({ params }) => {
 };
 
 export const actions = {
-	default: async ({ request, params }) => {
+	default: async ({ request, params, cookies }) => {
 		const convId = params.convId;
 		const data = await request.formData();
 		const usrMsg = data.get('message') as string;
@@ -63,12 +62,23 @@ export const actions = {
 		const temperature = parseFloat(data.get('temperature') as number);
 		const top_p = parseFloat(data.get('top_p') as number);
 
+		const current_conversation = await getConversation(convId);
+
 		let messages = [];
+
+		let msgsToSend = [];
+
+		if (current_conversation.is_chat) {
+			msgsToSend = await getConversationMessages(convId);
+			msgsToSend = [...msgsToSend.map((msg) => msg.message), { role: 'user', content: usrMsg }];
+		} else {
+			msgsToSend = [{ role: 'user', content: usrMsg }];
+		}
 
 		try {
 			const response = await openaiClient.createChatCompletion({
 				model: model,
-				messages: [{ role: 'user', content: usrMsg }],
+				messages: msgsToSend,
 				max_tokens: 2048,
 				temperature: temperature,
 				top_p: top_p

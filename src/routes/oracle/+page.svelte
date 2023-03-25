@@ -4,6 +4,7 @@
 	import { ChatBubbleLeftRight as Chat } from '@steeze-ui/heroicons';
 	export let data;
 	export let form;
+	let conv_type = 'Q/A';
 </script>
 
 <!-- <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -21,7 +22,7 @@
 			<p class="mt-4">Je suis à la fois très intelligent et très bête.</p>
 			<p class="mt-2">
 				En effet, je suis capable de répondre à des questions, mais je ne suis pas capable de <strong
-					>vraiment</strong
+					class=" font-bold">vraiment</strong
 				> comprendre ce que tu me dis.
 			</p>
 			<p class="mt-2">
@@ -38,7 +39,7 @@
 		<img src="/robot1.svg" class="w-1/3 drop-shadow-[0_0px_50px_rgba(131,24,67,0.7)]" alt="" />
 	</div>
 	<div class="mt-4 flex items-center gap-6">
-		<Icon src={Chat} class=" w-52 h-52 text-pink-600 opacity-70" />
+		<Icon src={Chat} class=" w-52 h-52 text-pink-600 opacity-70" theme="solid" />
 		<form method="POST" use:enhance>
 			<h1 class="font-rounded-sans text-xl md:text-3xl text-pink-500">
 				Crée une conversation avec moi&nbsp;!
@@ -55,8 +56,29 @@
 						/>
 					</label>
 				</li>
+				<li class="text-sm mt-2">
+					<fieldset class="flex flex-col gap-1 font-semibold">
+						<legend class="mb-1">Type de conversation :</legend>
+						<label class="ml-2">
+							<input type="radio" bind:group={conv_type} name="conv_type" value="Q/A" />
+							Questions / Réponses
+							<div class="font-normal italic ml-4 text-pink-800">
+								(le robot ne tient pas compte des messages précédents de la conversation)
+							</div>
+						</label>
+						<label class="ml-2">
+							<input type="radio" bind:group={conv_type} name="conv_type" value="Chat" />
+							Conversation
+							<div class="font-normal italic ml-4 text-pink-800">
+								(le robot tient compte de tous les messages de la conversation)
+							</div>
+						</label>
+					</fieldset>
+				</li>
 				<li class="mt-2">
-					<button type="submit" class="bg-pink-600 p-4 rounded-md"> Créer </button>
+					<button type="submit" class="bg-pink-600 p-4 rounded-md text-pink-100 font-semibold">
+						Créer
+					</button>
 				</li>
 			</ul>
 		</form>
