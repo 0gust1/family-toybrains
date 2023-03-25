@@ -2,7 +2,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { ArrowRight } from '@steeze-ui/heroicons';
 	import { page } from '$app/stores';
-	import { ChatBubbleBottomCenter as Chat } from '@steeze-ui/heroicons';
+	import { ChatBubbleLeftRight as Chat } from '@steeze-ui/heroicons';
 
 	export let menuOpen = false;
 	export let conversations;
@@ -158,20 +158,31 @@
 				</div>
 				<nav class="mt-5 flex-1 space-y-1 pl-2">
 					<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-					<h1 class="font-rounded-sans text-2xl text-blue-400">
+					<h1 class="font-rounded-sans text-xl text-gray-400">
 						<a href="/oracle"> Conversations </a>
 					</h1>
 					<ul class="text-gray-300">
+						<li class="mt-2">
+							<a href="/oracle">
+								<span class="text-sm font-medium mt-4 text-blue-400">
+									Créer une nouvelle conversation +
+								</span>
+							</a>
+						</li>
 						{#each conversations as conversation}
 							{@const current = $page.data?.current_conversation?.id === conversation.id}
 							<li class="p-1" class:current>
 								<a class="flex gap-1 items-center" href="/oracle/{conversation.id}">
-									<Icon src={Chat} class="h-6 w-6 mr-1" />
+									<div class="w-6">
+										<Icon src={Chat} class="h-5 w-5 mr-1 grow-0" />
+									</div>
 									<div>
-										<p class="font-medium">
+										<p class="font-normal">
 											{conversation.name}
 										</p>
-										<p class="text-xs">{new Date(conversation.created_at).toLocaleString()}</p>
+										<p class="text-xs text-gray-400">
+											{new Date(conversation.created_at).toLocaleString()}
+										</p>
 									</div>
 									{#if current}
 										<Icon src={ArrowRight} class="h-6 w-6 ml-auto" />
@@ -180,9 +191,6 @@
 								<!-- {JSON.stringify(conversation, null, 2)} -->
 							</li>
 						{/each}
-						<li class="mt-4">
-							<span class="text-sm font-medium mt-4"> Créer une nouvelle conversation + </span>
-						</li>
 					</ul>
 				</nav>
 			</div>

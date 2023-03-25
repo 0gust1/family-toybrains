@@ -17,6 +17,6 @@
 	{/if}
 </div>
 
-<div class=" bg-pink-200 h-full min-h-screen">
+<div class=" bg-gradient-to-tl from-indigo-200 via-purple-200 to-pink-200 h-full min-h-screen">
 	<slot />
 </div>

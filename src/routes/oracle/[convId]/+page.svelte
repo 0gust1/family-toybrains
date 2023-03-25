@@ -13,6 +13,9 @@
 	let model = data.model;
 	let isSubmitting = false;
 
+	let top_p = 1.0;
+	let temperature = 1.0;
+
 	onMount(() => {
 		window.scrollTo(0, document.body.scrollHeight);
 	});
@@ -52,7 +55,11 @@
 					>
 						<div class="flex relative">
 							{#if msg.message.role === 'assistant'}
-								<img src="/robot1.svg" class=" w-16 h-16 absolute -top-4 -left-24 " />
+								<img
+									src="/robot1.svg"
+									class=" w-16 h-16 absolute -top-4 -left-24 "
+									alt="petit robot mignon"
+								/>
 							{/if}
 							<article class="content prose">
 								{@html marked.parse(msg.message.content)}
@@ -100,7 +107,7 @@
 							name="message"
 							required
 							rows="5"
-							class="w-full border border-gray-300 rounded bg-opacity-60 bg-white p-2"
+							class="w-full border border-gray-300 rounded bg-opacity-60 bg-white p-4 "
 						/>
 					</label>
 					{#if !isSubmitting}
@@ -127,9 +134,8 @@
 						<div class="px-2">
 							<p class="text-sm font-medium text-red-700">{form.message}</p>
 							<div class="bg-orange-100 p-2 border-2 border-red-400 rounded-md">
-								<p>({form.error.error.code})</p>
 								<p>
-									{form.error.error.message}
+									{form.error}
 								</p>
 							</div>
 							<!-- {JSON.stringify(form.error)} -->
@@ -139,10 +145,34 @@
 				{#if debug}
 					<div class="debug">
 						<label>
+							temperature:
+							<input
+								form="prompt-form"
+								type="range"
+								name="temperature"
+								bind:value={temperature}
+								min="0"
+								max="2"
+								step="0.1"
+							/>
+						</label>
+						<label>
+							<span>top_p probability</span>
+							<input
+								form="prompt-form"
+								type="range"
+								name="top_p"
+								bind:value={top_p}
+								min="0"
+								max="2"
+								step="0.1"
+							/>
+						</label>
+						<label>
 							<span>Model:</span>
-							<select name="model" bind:value={model}>
+							<select form="prompt-form" name="model" bind:value={model}>
 								{#each data.models as model}
-									<option value={model}>{model}</option>
+									<option value={model.id}>{model.id}</option>
 								{/each}
 							</select>
 						</label>
@@ -171,7 +201,8 @@
 		@apply ml-3 md:ml-9;
 	}
 	.debug {
-		@apply mt-2 text-xs bg-yellow-200 bg-opacity-30 p-4 rounded-lg;
+		@apply flex mt-2 p-4 flex-col;
+		@apply text-xs bg-yellow-200 bg-opacity-30 rounded-lg;
 	}
 
 	/* 	.role-assistant:before {
