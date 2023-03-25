@@ -10,10 +10,13 @@
 
 		<form method="POST" use:enhance class="text-lg">
 			<p class="my-4">
-				<label>Entrez le mot de passe: <input name="password" type="password" /></label>
+				<label>Entrez votre nom: <input required name="username" type="text" /></label>
+			</p>
+			<p class="my-4">
+				<label>Entrez le mot de passe: <input required name="password" type="password" /></label>
 			</p>
 			<p>
-				<button type="submit" class="p-4 border border-purple-600 rounded-md">Login</button>
+				<button type="submit" class="p-4 border border-purple-600 rounded-md">Entrer</button>
 			</p>
 		</form>
 
