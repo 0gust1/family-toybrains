@@ -4,6 +4,18 @@ import { Configuration, OpenAIApi, type ChatCompletionResponseMessage } from 'op
 import { getConversationMessages, createConversationMessage } from '$lib/services/messages';
 import { getConversation } from '$lib/services/conversations';
 
+import type { Config } from '@sveltejs/adapter-vercel';
+
+export const config: Config = {
+	runtime: 'edge',
+	envVarsInUse: [
+		'OPENAI_KEY',
+		'OPENAI_ORGANIZATION',
+		'SUPABASE_PROJECT_URL',
+		'SUPABASE_PROJECT_KEY'
+	]
+};
+
 const configuration = new Configuration({
 	organization: env.OPENAI_ORGANIZATION,
 	apiKey: env.OPENAI_KEY
@@ -45,17 +57,18 @@ export const actions = {
 		const data = await request.formData();
 		const usrMsg = data.get('message') as string;
 		const model = data.get('model') as string;
+		const temperature = parseFloat(data.get('temperature') as number);
+		const top_p = parseFloat(data.get('top_p') as number);
 
 		let messages = [];
 
 		try {
-			await createConversationMessage(convId, { role: 'user', content: usrMsg });
-
 			const response = await openai.createChatCompletion({
 				model: model,
 				messages: [{ role: 'user', content: usrMsg }],
 				max_tokens: 2048,
-				temperature: 0.3
+				temperature: temperature,
+				top_p: top_p
 			});
 
 			const responseData = response.data;
@@ -63,8 +76,11 @@ export const actions = {
 			metadata.finish_reason = choices[0].finish_reason;
 			metadata.index = choices[0].index;
 
+			messages = await createConversationMessage(convId, { role: 'user', content: usrMsg });
+
 			messages = await createConversationMessage(convId, choices[0].message, metadata);
 		} catch (err /*: AxiosError<OpenAIError> */) {
+			console.error(err);
 			return fail(err.response.status, {
 				message: 'Le robot a eu un problème !',
 				error: err.response.data ?? err.response.statusText
