@@ -46,7 +46,7 @@
 		"install": "^0.13.0",
 		"marked": "^4.2.12",
 		"npm": "^9.6.2",
-		"openai": "^3.2.1",
+		"openai-fetch": "^1.1.0",
 		"svelte-copy-to-clipboard": "^0.2.5",
 		"svelte-local-storage-store": "^0.4.0"
 	}

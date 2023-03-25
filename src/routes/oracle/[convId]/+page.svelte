@@ -134,9 +134,8 @@
 						<div class="px-2">
 							<p class="text-sm font-medium text-red-700">{form.message}</p>
 							<div class="bg-orange-100 p-2 border-2 border-red-400 rounded-md">
-								<p>({form.error.error.code})</p>
 								<p>
-									{form.error.error.message}
+									{form.error}
 								</p>
 							</div>
 							<!-- {JSON.stringify(form.error)} -->
@@ -171,7 +170,7 @@
 						</label>
 						<label>
 							<span>Model:</span>
-							<select name="model" bind:value={model}>
+							<select form="prompt-form" name="model" bind:value={model}>
 								{#each data.models as model}
 									<option value={model.id}>{model.id}</option>
 								{/each}

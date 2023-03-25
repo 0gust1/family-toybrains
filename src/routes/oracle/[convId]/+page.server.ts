@@ -1,6 +1,7 @@
 import { env } from '$env/dynamic/private';
 import { fail, error } from '@sveltejs/kit';
-import { Configuration, OpenAIApi, type ChatCompletionResponseMessage } from 'openai';
+
+import { OpenAIClient, type ConfigOpts } from 'openai-fetch';
 import { getConversationMessages, createConversationMessage } from '$lib/services/messages';
 import { getConversation } from '$lib/services/conversations';
 
@@ -16,17 +17,18 @@ export const config: Config = {
 	]
 };
 
-const configuration = new Configuration({
-	organization: env.OPENAI_ORGANIZATION,
+const configuration: ConfigOpts = {
+	organizationId: env.OPENAI_ORGANIZATION,
 	apiKey: env.OPENAI_KEY
-});
-const openai = new OpenAIApi(configuration);
+};
+const openaiClient = new OpenAIClient(configuration);
 
 export const ssr = true;
 
 export const load = async ({ params }) => {
-	const resp = await openai.listModels(); // TODO: remove or cache this
-	const models = resp.data.data;
+	//const resp = await openaiClient.listModels(); // TODO: remove or cache this
+	//const models = resp.data.data;
+	const models = [{ id: 'gpt-3.5-turbo', name: 'ChatGTP-turbo' }];
 
 	const convId = params.convId;
 
@@ -47,7 +49,7 @@ export const load = async ({ params }) => {
 		current_conversation: conversationOrError,
 		messages: messagesOrError ?? [],
 		models: models,
-		model: 'gpt-3.5-turbo',
+		model: models[0].id,
 		user: 'achas'
 	};
 };
@@ -64,7 +66,7 @@ export const actions = {
 		let messages = [];
 
 		try {
-			const response = await openai.createChatCompletion({
+			const response = await openaiClient.createChatCompletion({
 				model: model,
 				messages: [{ role: 'user', content: usrMsg }],
 				max_tokens: 2048,
@@ -72,7 +74,7 @@ export const actions = {
 				top_p: top_p
 			});
 
-			const responseData = response.data;
+			const responseData = response.response;
 			const { choices, ...metadata } = responseData;
 			metadata.finish_reason = choices[0].finish_reason;
 			metadata.index = choices[0].index;
@@ -80,11 +82,10 @@ export const actions = {
 			messages = await createConversationMessage(convId, { role: 'user', content: usrMsg });
 
 			messages = await createConversationMessage(convId, choices[0].message, metadata);
-		} catch (err /*: AxiosError<OpenAIError> */) {
-			console.error(err);
-			return fail(err.response.status, {
+		} catch (err) {
+			return fail(err.status, {
 				message: 'Le robot a eu un problème !',
-				error: err.response.data ?? err.response.statusText
+				error: err.message ?? err.statusText
 			});
 		}
 
