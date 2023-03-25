@@ -21,7 +21,7 @@
 			<p class="mt-4">Je suis à la fois très intelligent et très bête.</p>
 			<p class="mt-2">
 				En effet, je suis capable de répondre à des questions, mais je ne suis pas capable de <strong
-					>vraiment</strong
+					class=" font-bold">vraiment</strong
 				> comprendre ce que tu me dis.
 			</p>
 			<p class="mt-2">
@@ -38,7 +38,7 @@
 		<img src="/robot1.svg" class="w-1/3 drop-shadow-[0_0px_50px_rgba(131,24,67,0.7)]" alt="" />
 	</div>
 	<div class="mt-4 flex items-center gap-6">
-		<Icon src={Chat} class=" w-52 h-52 text-pink-600 opacity-70" />
+		<Icon src={Chat} class=" w-52 h-52 text-pink-600 opacity-70" theme="solid" />
 		<form method="POST" use:enhance>
 			<h1 class="font-rounded-sans text-xl md:text-3xl text-pink-500">
 				Crée une conversation avec moi&nbsp;!
@@ -56,7 +56,9 @@
 					</label>
 				</li>
 				<li class="mt-2">
-					<button type="submit" class="bg-pink-600 p-4 rounded-md"> Créer </button>
+					<button type="submit" class="bg-pink-600 p-4 rounded-md text-pink-100 font-semibold">
+						Créer
+					</button>
 				</li>
 			</ul>
 		</form>

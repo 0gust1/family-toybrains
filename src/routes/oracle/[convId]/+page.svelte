@@ -57,7 +57,7 @@
 							{#if msg.message.role === 'assistant'}
 								<img
 									src="/robot1.svg"
-									class=" w-16 h-16 absolute -top-4 -left-24 "
+									class=" w-16 h-16 absolute -top-4 -left-24"
 									alt="petit robot mignon"
 								/>
 							{/if}
@@ -97,6 +97,8 @@
 						// `result` is an `ActionResult` object
 						// `update` is a function which triggers the logic that would be triggered if this callback wasn't set
 						isSubmitting = false;
+						temperature = 1.0;
+						top_p = 1.0;
 						update();
 					};
 				}}
@@ -107,7 +109,7 @@
 							name="message"
 							required
 							rows="5"
-							class="w-full border border-gray-300 rounded bg-opacity-60 bg-white p-4 "
+							class="w-full border border-gray-300 rounded bg-opacity-60 bg-white p-4"
 						/>
 					</label>
 					{#if !isSubmitting}
@@ -144,7 +146,8 @@
 				{/if}
 				{#if debug}
 					<div class="debug">
-						<label>
+						<p class="font-bold">Debug parameters</p>
+						<label class="flex gap-2 my-1">
 							temperature:
 							<input
 								form="prompt-form"
@@ -155,8 +158,9 @@
 								max="2"
 								step="0.1"
 							/>
+							<code class="bg-slate-100 px-1 border border-slate-300">{temperature}</code>
 						</label>
-						<label>
+						<label class="flex gap-2 my-1">
 							<span>top_p probability</span>
 							<input
 								form="prompt-form"
@@ -167,8 +171,9 @@
 								max="2"
 								step="0.1"
 							/>
+							<code class="bg-slate-100 px-1 border border-slate-300">{top_p}</code>
 						</label>
-						<label>
+						<label class="my-1">
 							<span>Model:</span>
 							<select form="prompt-form" name="model" bind:value={model}>
 								{#each data.models as model}
