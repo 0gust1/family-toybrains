@@ -73,10 +73,10 @@
 								/>
 							{:else}
 								<div
-									class=" w-16 h-16 absolute -top-4 -right-20 flex flex-col items-center text-pink-700 text-opacity-50"
+									class="absolute w-16 -top-4 -right-24 flex flex-col items-start text-pink-700 text-opacity-50"
 								>
-									<Icon src={User} class="w-10 h-10" theme="solid" />
-									<div class="text-xs">{data.username}</div>
+									<Icon src={User} class="w-10 h-10 ml-1" theme="solid" />
+									<div class="text-xs ml-[8px]">{data.current_conversation.users.name}</div>
 								</div>
 							{/if}
 							<article class="content prose">
