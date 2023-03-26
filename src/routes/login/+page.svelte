@@ -19,11 +19,11 @@
 						>
 					</p>
 				</div>
-				<div class="bg-red-500 bg-opacity-50 px-4 py-6 rounded-md text-sm text-red-900">
-					{#if form && (!form.password_correct || !form.user)}
+				{#if form && (!form.password_correct || !form.user)}
+					<div class="bg-red-500 bg-opacity-50 px-4 py-6 rounded-md text-sm text-red-900">
 						<p>Soit le mot de passe est incorrect, ou soit l'utilisateur est inconnu !</p>
-					{/if}
-				</div>
+					</div>
+				{/if}
 			</div>
 			<p>
 				<button type="submit" class="p-4 border border-purple-600 rounded-md">Entrer</button>

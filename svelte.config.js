@@ -16,7 +16,12 @@ const config = {
 	kit: {
 		adapter: adapter({
 			// config is done in *.server files
-		})
+		}),
+		version: {
+			// name: ~Date.now().toString(),~ version.name must be deterministic (consistent across multiple evaluations)
+			// see: https://kit.svelte.dev/docs/configuration#version and https://github.com/sveltejs/kit/issues/8948
+			pollInterval: 300 * 1000
+		}
 	},
 	vitePlugin: {
 		experimental: {
