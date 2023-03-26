@@ -1,7 +1,7 @@
 <script>
 	import '../app.postcss';
 	import { page } from '$app/stores';
-
+	import AppUpdatedNotif from '$lib/components/AppUpdated.svelte';
 	const disconnect = () => {
 		window.location.href = '/logout';
 	};
@@ -22,4 +22,19 @@
 
 <div class=" bg-gradient-to-tl from-indigo-200 via-purple-200 to-pink-200 h-full min-h-screen">
 	<slot />
+</div>
+
+<!-- Render modals here. See https://github.com/mattjennings/svelte-modals -->
+<!-- <Modals>
+  <div slot="backdrop" class="backdrop" on:click={closeModal} on:keypress={closeModal} />
+</Modals> -->
+
+<!-- Global notification live region, render this permanently at the end of the document -->
+<div
+	aria-live="assertive"
+	class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start z-50"
+>
+	<div class="w-full flex flex-col text-left items-center space-y-4 sm:items-end">
+		<AppUpdatedNotif />
+	</div>
 </div>

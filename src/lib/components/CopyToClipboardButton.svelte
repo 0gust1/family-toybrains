@@ -56,10 +56,10 @@
 
 <style lang="postcss">
 	.clipboard-copy-button {
-		@apply h-6 w-6 border border-pink-100 bg-white rounded p-0.5 flex;
+		@apply h-6 w-6  hover:bg-white rounded p-0.5 flex;
 	}
 	.clipboard-copy-button .clipboard-icon {
-		@apply h-5 w-5 text-pink-200;
+		@apply h-5 w-5;
 	}
 	.clipboard-copy-button:hover {
 		@apply bg-pink-100 border-pink-200;
