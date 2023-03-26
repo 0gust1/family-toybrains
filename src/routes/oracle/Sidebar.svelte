@@ -1,10 +1,14 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import ConversationsList from './ConversationsList.svelte';
 
 	export let menuOpen = false;
 	export let conversations;
 
 	const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+	// Close the menu when navigating to a new page
+	$: $page.url && (menuOpen = false);
 </script>
 
 <!--
@@ -126,7 +130,7 @@
 				</div>
 				<nav class="mt-5 flex-1 space-y-1 pl-2">
 					<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-					<ConversationsList {conversations} />
+					<ConversationsList {conversations} bind:menuOpen />
 				</nav>
 			</div>
 			<!-- 			<div class="flex flex-shrink-0 bg-gray-700 p-4">

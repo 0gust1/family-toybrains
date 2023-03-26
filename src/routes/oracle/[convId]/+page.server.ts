@@ -54,7 +54,7 @@ export const load = async ({ params }) => {
 };
 
 export const actions = {
-	default: async ({ request, params, cookies }) => {
+	post_prompt: async ({ request, params, cookies }) => {
 		const convId = params.convId;
 		const data = await request.formData();
 		const usrMsg = data.get('message') as string;

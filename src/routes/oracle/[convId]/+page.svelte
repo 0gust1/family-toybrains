@@ -93,7 +93,7 @@
 						</div>
 					</div>
 					{#if msg.message.role === 'assistant' && !data.current_conversation.is_chat}
-						<hr class="mt-4 mb-6 border border-dashed" />
+						<hr class="post-separator" />
 					{/if}
 				{:else}
 					<div class="message">
@@ -111,6 +111,7 @@
 			{#if data.current_conversation.user === data.userId}
 				<form
 					id="prompt-form"
+					action="?/post_prompt"
 					class="w-full md:w-3/5 mx-auto"
 					method="POST"
 					use:enhance={({ form, data, action, cancel, submitter }) => {
@@ -174,7 +175,7 @@
 					{#if debug}
 						<div class="debug">
 							<p class="font-bold">Debug parameters</p>
-							<label class="flex gap-2 my-1 items-start">
+							<label class="flex gap-2 my-1 items-start flex-wrap">
 								<span class=" w-32 grow-0 shrink-0 text-right">temperature:</span>
 								<input
 									form="prompt-form"
@@ -190,7 +191,7 @@
 									>(contrôle la quantité de "hasard" dans la réponse)</span
 								>
 							</label>
-							<label class="flex gap-2 my-1 items-start">
+							<label class="flex gap-2 my-1 items-start flex-wrap">
 								<span class="w-32 grow-0 shrink-0 text-right">top_p probability:</span>
 								<input
 									form="prompt-form"
@@ -222,11 +223,11 @@
 
 <style lang="postcss">
 	.message {
-		@apply my-2 px-4 py-6 border-2 border-opacity-60 border-slate-200 rounded;
+		@apply my-2 px-4 py-6 pr-6 border-2 border-opacity-60 border-slate-200 rounded;
 	}
 	.message .content {
 		/* @apply whitespace-pre-line; */
-		@apply prose prose-slate prose-sm;
+		@apply prose prose-slate prose-sm pr-2;
 	}
 	.role-assistant {
 		@apply relative mr-9 pl-6 border-blue-200 border-opacity-20 bg-blue-100 text-slate-800 bg-opacity-70 rounded-r-2xl shadow-md;
@@ -236,6 +237,10 @@
 	.role-user {
 		@apply border-green-200 border-opacity-20 bg-green-100 text-slate-800 bg-opacity-50 rounded-l-2xl shadow-md;
 		@apply ml-3 md:ml-9;
+	}
+	.post-separator {
+		border-style: dotted;
+		@apply mt-10 mb-10 border-t-4 border-slate-600 border-opacity-20;
 	}
 	.debug {
 		@apply flex mt-2 p-4 flex-col;
